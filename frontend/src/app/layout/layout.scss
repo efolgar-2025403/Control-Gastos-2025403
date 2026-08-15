@@ -1,0 +1,882 @@
+:host {
+  display: block;
+
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --surface-low: #121212;
+  --surface-medium: #181818;
+  --surface-high: #1f1f1f;
+
+  --border: #27272a;
+  --border-soft: #1c1c1c;
+
+  --gold: #d4af37;
+  --gold-light: #e9c349;
+  --gold-dim: #c5a028;
+  --gold-soft: rgba(212, 175, 55, 0.1);
+
+  --text: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --success: #10b981;
+  --danger: #ef4444;
+
+  --sidebar-width: 256px;
+}
+
+/* =========================================
+   APP SHELL
+   ========================================= */
+
+.app-shell {
+  min-height: 100vh;
+
+  background: var(--bg);
+  color: var(--text);
+
+  font-family: 'Inter', sans-serif;
+}
+
+/* =========================================
+   SIDEBAR
+   ========================================= */
+
+.sidebar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  width: var(--sidebar-width);
+  height: 100vh;
+
+  padding: 28px 16px;
+
+  box-sizing: border-box;
+
+  background: var(--surface);
+
+  border-right: 1px solid var(--border);
+
+  z-index: 100;
+}
+
+/* =========================================
+   BRAND
+   ========================================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 8px;
+
+  margin-bottom: 28px;
+}
+
+.brand-logo {
+  display: grid;
+  place-items: center;
+
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(212, 175, 55, 0.35);
+
+  border-radius: 9px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(212, 175, 55, 0.16),
+    rgba(212, 175, 55, 0.04)
+  );
+
+  color: var(--gold);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.05);
+}
+
+.brand-info {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.brand-info h1 {
+  margin: 0;
+
+  color: var(--gold);
+
+  font-size: 18px;
+  line-height: 24px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.02em;
+}
+
+.brand-info span {
+  margin-top: 2px;
+
+  color: var(--text-muted);
+
+  font-size: 10px;
+  line-height: 16px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.04em;
+}
+
+/* =========================================
+   DIVIDER
+   ========================================= */
+
+.sidebar-divider {
+  width: 100%;
+  height: 1px;
+
+  margin-bottom: 22px;
+
+  background: var(--border-soft);
+}
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  flex: 1;
+}
+
+.navigation-label {
+  margin: 8px 12px 9px;
+
+  color: var(--text-muted);
+
+  font-size: 10px;
+
+  line-height: 16px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+}
+
+.navigation-label-analysis {
+  margin-top: 28px;
+}
+
+/* =========================================
+   NAV ITEMS
+   ========================================= */
+
+.nav-item {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  min-height: 44px;
+
+  padding: 0 13px;
+
+  gap: 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid transparent;
+
+  border-radius: 8px;
+
+  color: var(--text-secondary);
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+  letter-spacing: 0;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-item:hover {
+  background: var(--surface-low);
+
+  border-color: var(--border);
+
+  color: var(--text);
+
+  transform: translateX(1px);
+}
+
+.nav-item.active {
+  background: rgba(212, 175, 55, 0.08);
+
+  border-color: rgba(212, 175, 55, 0.14);
+
+  color: var(--gold);
+}
+
+.nav-item.active::before {
+  content: '';
+
+  position: absolute;
+
+  left: -1px;
+  top: 9px;
+  bottom: 9px;
+
+  width: 2px;
+
+  border-radius: 0 2px 2px 0;
+
+  background: var(--gold);
+
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+}
+
+/* =========================================
+   NAV ICONS
+   ========================================= */
+
+.nav-icon {
+  display: grid;
+  place-items: center;
+
+  width: 21px;
+  height: 21px;
+
+  flex-shrink: 0;
+
+  color: inherit;
+
+  font-size: 19px;
+
+  line-height: 1;
+
+  transition: color 0.2s ease;
+}
+
+.nav-item.active .nav-icon {
+  color: var(--gold);
+}
+
+/* =========================================
+   SIDEBAR FOOTER
+   ========================================= */
+
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin-top: 24px;
+}
+
+.add-expense-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  min-height: 44px;
+
+  margin-bottom: 10px;
+
+  gap: 8px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: var(--gold);
+
+  color: #000000;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.02em;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.add-expense-button:hover {
+  background: var(--gold-light);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 20px rgba(212, 175, 55, 0.14);
+}
+
+.add-expense-button:active {
+  transform: translateY(0);
+}
+
+.add-expense-button .material-symbols-outlined {
+  font-size: 18px;
+}
+
+/* =========================================
+   FOOTER NAV
+   ========================================= */
+
+.footer-nav-item {
+  min-height: 40px;
+}
+
+/* =========================================
+   LOGOUT
+   ========================================= */
+
+.logout-item:hover {
+  color: #ff6b6b;
+
+  background: rgba(239, 68, 68, 0.06);
+
+  border-color: rgba(239, 68, 68, 0.12);
+}
+
+/* =========================================
+   SIDEBAR FOOTER DIVIDER
+   ========================================= */
+
+.sidebar-footer-divider {
+  width: 100%;
+  height: 1px;
+
+  margin: 12px 0 8px;
+
+  background: var(--border-soft);
+}
+
+/* =========================================
+   VERSION
+   ========================================= */
+
+.version {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 8px;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+
+  line-height: 14px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.04em;
+}
+
+/* =========================================
+   MAIN CONTENT
+   ========================================= */
+
+.main-content {
+  min-height: 100vh;
+
+  margin-left: var(--sidebar-width);
+
+  background:
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(212, 175, 55, 0.035),
+      transparent 28%
+    ),
+    var(--bg);
+}
+
+/* =========================================
+   TOPBAR
+   ========================================= */
+
+.topbar {
+  position: sticky;
+
+  top: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 72px;
+
+  padding: 0 32px;
+
+  box-sizing: border-box;
+
+  background: rgba(10, 10, 10, 0.88);
+
+  border-bottom: 1px solid var(--border);
+
+  backdrop-filter: blur(16px);
+
+  -webkit-backdrop-filter: blur(16px);
+
+  z-index: 80;
+}
+
+/* =========================================
+   TOPBAR LEFT
+   ========================================= */
+
+.topbar-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar-label {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+
+  line-height: 14px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+}
+
+.topbar h1 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 16px;
+
+  line-height: 22px;
+
+  font-weight: 600;
+
+  letter-spacing: -0.01em;
+}
+
+/* =========================================
+   TOPBAR RIGHT
+   ========================================= */
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+/* =========================================
+   SYSTEM STATUS
+   ========================================= */
+
+.system-status {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: var(--text-secondary);
+
+  font-size: 11px;
+
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: var(--success);
+
+  box-shadow:
+    0 0 0 3px rgba(16, 185, 129, 0.1),
+    0 0 10px rgba(16, 185, 129, 0.2);
+}
+
+.topbar-divider {
+  width: 1px;
+  height: 24px;
+
+  background: var(--border);
+}
+
+/* =========================================
+   TOPBAR BUTTONS
+   ========================================= */
+
+.notification-button,
+.account-button {
+  display: grid;
+  place-items: center;
+
+  width: 36px;
+  height: 36px;
+
+  padding: 0;
+
+  border: 1px solid transparent;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.notification-button:hover,
+.account-button:hover {
+  background: var(--surface-low);
+
+  border-color: var(--border);
+
+  color: var(--text);
+}
+
+.notification-button .material-symbols-outlined,
+.account-button .material-symbols-outlined {
+  font-size: 21px;
+}
+
+/* =========================================
+   PAGE CONTENT
+   ========================================= */
+
+.page-content {
+  min-height: calc(100vh - 72px);
+
+  background: transparent;
+}
+
+/* =========================================
+   MOBILE TOPBAR
+   ========================================= */
+
+.mobile-topbar {
+  display: none;
+}
+
+/* =========================================
+   MOBILE BOTTOM NAV
+   ========================================= */
+
+.mobile-bottom-nav {
+  display: none;
+}
+
+/* =========================================
+   RESPONSIVE — TABLET
+   ========================================= */
+
+@media (max-width: 1000px) {
+  :host {
+    --sidebar-width: 220px;
+  }
+
+  .sidebar {
+    padding: 24px 12px;
+  }
+
+  .topbar {
+    padding: 0 24px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — MOBILE
+   ========================================= */
+
+@media (max-width: 700px) {
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+
+    padding-top: 64px;
+
+    padding-bottom: 72px;
+  }
+
+  .topbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 64px;
+    min-height: 64px;
+
+    padding: 0 16px;
+
+    background: rgba(10, 10, 10, 0.94);
+
+    z-index: 90;
+  }
+
+  .topbar-left {
+    display: none;
+  }
+
+  .topbar-right {
+    display: none;
+  }
+
+  /* MOBILE HEADER */
+
+  .mobile-topbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: 64px;
+
+    padding: 0 16px;
+
+    box-sizing: border-box;
+
+    background: rgba(10, 10, 10, 0.94);
+
+    border-bottom: 1px solid var(--border);
+
+    backdrop-filter: blur(16px);
+
+    -webkit-backdrop-filter: blur(16px);
+
+    z-index: 110;
+  }
+
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+  }
+
+  .mobile-brand-logo {
+    display: grid;
+    place-items: center;
+
+    width: 32px;
+    height: 32px;
+
+    border: 1px solid rgba(212, 175, 55, 0.3);
+
+    border-radius: 7px;
+
+    background: rgba(212, 175, 55, 0.08);
+
+    color: var(--gold);
+
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .mobile-brand > div:last-child {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-brand strong {
+    color: var(--gold);
+
+    font-size: 14px;
+
+    line-height: 18px;
+
+    font-weight: 700;
+  }
+
+  .mobile-brand span {
+    color: var(--text-muted);
+
+    font-size: 9px;
+
+    line-height: 13px;
+
+    font-weight: 500;
+  }
+
+  .mobile-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+  }
+
+  .mobile-actions button {
+    display: grid;
+    place-items: center;
+
+    width: 36px;
+    height: 36px;
+
+    padding: 0;
+
+    border: 1px solid transparent;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: var(--text-secondary);
+
+    cursor: pointer;
+  }
+
+  .mobile-actions button:hover {
+    color: var(--text);
+
+    background: var(--surface-low);
+
+    border-color: var(--border);
+  }
+
+  /* MOBILE BOTTOM NAV */
+
+  .mobile-bottom-nav {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+    width: 100%;
+    height: 64px;
+
+    background: rgba(10, 10, 10, 0.96);
+
+    border-top: 1px solid var(--border);
+
+    backdrop-filter: blur(16px);
+
+    -webkit-backdrop-filter: blur(16px);
+
+    z-index: 120;
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 3px;
+
+    color: var(--text-muted);
+
+    text-decoration: none;
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    transition: color 0.2s ease;
+  }
+
+  .mobile-nav-item .material-symbols-outlined {
+    font-size: 20px;
+  }
+
+  .mobile-nav-item.active {
+    color: var(--gold);
+  }
+
+  .mobile-add-button {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+
+    margin: auto;
+
+    border: 4px solid var(--bg);
+
+    border-radius: 50%;
+
+    background: var(--gold);
+
+    color: #000000;
+
+    text-decoration: none;
+
+    box-shadow:
+      0 0 20px rgba(212, 175, 55, 0.18);
+  }
+
+  .mobile-add-button .material-symbols-outlined {
+    font-size: 22px;
+  }
+
+  .page-content {
+    min-height: calc(100vh - 64px);
+  }
+}

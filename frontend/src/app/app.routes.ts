@@ -1,0 +1,74 @@
+import { Routes } from '@angular/router';
+
+import { Layout } from './layout/layout';
+
+import { Dashboard } from './features/dashboard/dashboard';
+import { Expenses } from './features/expenses/expenses';
+import { Categories } from './features/categories/categories';
+import { Movements } from './features/movements/movements';
+import { Reports } from './features/reports/reports';
+
+import { Login } from './features/auth/login/login';
+import { Register } from './features/auth/register/register';
+
+import { authGuard } from './core/guards/auth.guard';
+
+export const routes: Routes = [
+
+  {
+    path: 'login',
+    component: Login
+  },
+
+  {
+    path: 'register',
+    component: Register
+  },
+
+  {
+    path: '',
+    component: Layout,
+    canActivate: [authGuard],
+
+    children: [
+
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+
+      {
+        path: 'dashboard',
+        component: Dashboard
+      },
+
+      {
+        path: 'expenses',
+        component: Expenses
+      },
+
+      {
+        path: 'categories',
+        component: Categories
+      },
+
+      {
+        path: 'movements',
+        component: Movements
+      },
+
+      {
+        path: 'reports',
+        component: Reports
+      }
+
+    ]
+  },
+
+  {
+    path: '**',
+    redirectTo: ''
+  }
+
+];

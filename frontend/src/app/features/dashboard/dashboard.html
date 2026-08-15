@@ -1,0 +1,457 @@
+﻿<section class="dashboard-page">
+
+  <!-- =========================================
+       HEADER
+       ========================================= -->
+
+  <header class="dashboard-header">
+
+    <div class="header-content">
+
+      <span class="eyebrow">
+        RESUMEN FINANCIERO
+      </span>
+
+      <h1>
+        Dashboard
+      </h1>
+
+      <p>
+        Visión general de tus gastos y categorías.
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="refresh-button"
+      (click)="refresh()"
+      [disabled]="loading"
+    >
+      <span class="material-symbols-outlined">
+        refresh
+      </span>
+
+      Actualizar
+    </button>
+
+  </header>
+
+
+  <!-- =========================================
+       ERROR
+       ========================================= -->
+
+  @if (errorMessage) {
+
+    <div class="alert-error">
+
+      <span class="material-symbols-outlined">
+        error
+      </span>
+
+      <span>
+        {{ errorMessage }}
+      </span>
+
+    </div>
+
+  }
+
+
+  <!-- =========================================
+       LOADING
+       ========================================= -->
+
+  @if (loading) {
+
+    <section class="loading-state">
+
+      <div class="loader"></div>
+
+      <p>
+        Cargando información...
+      </p>
+
+    </section>
+
+  } @else {
+
+
+    <!-- =========================================
+         KPI CARDS
+         ========================================= -->
+
+    <section class="summary-grid">
+
+
+      <!-- TOTAL -->
+
+      <article class="summary-card summary-card-featured">
+
+        <div class="card-top">
+
+          <span class="summary-label">
+            GASTOS TOTALES
+          </span>
+
+          <div class="summary-icon gold">
+            <span class="material-symbols-outlined">
+              payments
+            </span>
+          </div>
+
+        </div>
+
+        <strong class="summary-value">
+          Q {{ totalAmount | number:'1.2-2' }}
+        </strong>
+
+        <span class="summary-description">
+          En todos tus gastos registrados
+        </span>
+
+      </article>
+
+
+      <!-- GASTOS -->
+
+      <article class="summary-card">
+
+        <div class="card-top">
+
+          <span class="summary-label">
+            GASTOS
+          </span>
+
+          <div class="summary-icon">
+            <span class="material-symbols-outlined">
+              receipt_long
+            </span>
+          </div>
+
+        </div>
+
+        <strong class="summary-value">
+          {{ totalExpenses }}
+        </strong>
+
+        <span class="summary-description">
+          Registros realizados
+        </span>
+
+      </article>
+
+
+      <!-- CATEGORÍAS -->
+
+      <article class="summary-card">
+
+        <div class="card-top">
+
+          <span class="summary-label">
+            CATEGORÍAS
+          </span>
+
+          <div class="summary-icon">
+            <span class="material-symbols-outlined">
+              category
+            </span>
+          </div>
+
+        </div>
+
+        <strong class="summary-value">
+          {{ categories.length }}
+        </strong>
+
+        <span class="summary-description">
+          Categorías disponibles
+        </span>
+
+      </article>
+
+
+      <!-- PROMEDIO -->
+
+      <article class="summary-card">
+
+        <div class="card-top">
+
+          <span class="summary-label">
+            PROMEDIO
+          </span>
+
+          <div class="summary-icon">
+            <span class="material-symbols-outlined">
+              trending_up
+            </span>
+          </div>
+
+        </div>
+
+        <strong class="summary-value">
+          Q {{ averageExpense | number:'1.2-2' }}
+        </strong>
+
+        <span class="summary-description">
+          Promedio por gasto
+        </span>
+
+      </article>
+
+    </section>
+
+
+    <!-- =========================================
+         MAIN GRID
+         ========================================= -->
+
+    <section class="dashboard-grid">
+
+
+      <!-- =======================================
+           RECENT EXPENSES
+           ======================================= -->
+
+      <article class="panel expenses-panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <span class="panel-label">
+              ACTIVIDAD
+            </span>
+
+            <h2>
+              Últimos gastos
+            </h2>
+
+          </div>
+
+          <span class="panel-count">
+            {{ totalExpenses }}
+          </span>
+
+        </div>
+
+
+        @if (getRecentExpenses().length === 0) {
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+
+              <span class="material-symbols-outlined">
+                receipt_long
+              </span>
+
+            </div>
+
+            <h3>
+              No hay gastos registrados
+            </h3>
+
+            <p>
+              Registra tu primer gasto para comenzar.
+            </p>
+
+          </div>
+
+        } @else {
+
+          <div class="expense-list">
+
+            @for (
+              expense of getRecentExpenses();
+              track expense.id
+            ) {
+
+              <div class="expense-item">
+
+
+                <div class="expense-left">
+
+                  <div class="expense-icon">
+
+                    <span class="material-symbols-outlined">
+                      payments
+                    </span>
+
+                  </div>
+
+
+                  <div class="expense-info">
+
+                    <strong>
+                      {{ expense.description }}
+                    </strong>
+
+                    <span>
+                      {{ getCategoryName(expense.category_id) }}
+                      <span class="separator">·</span>
+                      {{ formatDate(expense.date) }}
+                    </span>
+
+                  </div>
+
+                </div>
+
+
+                <strong class="expense-amount">
+                  Q {{ expense.amount | number:'1.2-2' }}
+                </strong>
+
+              </div>
+
+            }
+
+          </div>
+
+        }
+
+      </article>
+
+
+      <!-- =======================================
+           CATEGORY DISTRIBUTION
+           ======================================= -->
+
+      <article class="panel categories-panel">
+
+        <div class="panel-header">
+
+          <div>
+
+            <span class="panel-label">
+              DISTRIBUCIÓN
+            </span>
+
+            <h2>
+              Por categoría
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        @if (categories.length === 0) {
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+
+              <span class="material-symbols-outlined">
+                category
+              </span>
+
+            </div>
+
+            <h3>
+              No hay categorías
+            </h3>
+
+            <p>
+              Crea una categoría para comenzar.
+            </p>
+
+          </div>
+
+        } @else {
+
+          <div class="category-list">
+
+            @for (
+              category of categories;
+              track category.id
+            ) {
+
+              <div class="category-item">
+
+                <div class="category-top">
+
+                  <div class="category-name">
+
+                    <span class="category-dot"></span>
+
+                    <strong>
+                      {{ category.name }}
+                    </strong>
+
+                  </div>
+
+                  <span class="category-amount">
+                    Q {{ getCategoryTotal(category.id) | number:'1.2-2' }}
+                  </span>
+
+                </div>
+
+
+                <div class="progress">
+
+                  <div
+                    class="progress-value"
+                    [style.width.%]="getCategoryPercentage(category.id)"
+                  ></div>
+
+                </div>
+
+
+                <div class="category-bottom">
+
+                  <span>
+                    {{ getCategoryPercentage(category.id) | number:'1.0-0' }}%
+                  </span>
+
+                  <span>
+                    del total
+                  </span>
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        }
+
+      </article>
+
+    </section>
+
+
+    <!-- =========================================
+         DASHBOARD FOOTER
+         ========================================= -->
+
+    <section class="dashboard-footer">
+
+      <div class="footer-content">
+
+        <span class="footer-label">
+          CONTROL-GASTOS
+        </span>
+
+        <strong>
+          Mantén tus finanzas bajo control.
+        </strong>
+
+      </div>
+
+      <div class="footer-status">
+
+        <span class="status-dot"></span>
+
+        Sistema operativo
+
+      </div>
+
+    </section>
+
+  }
+
+</section>
