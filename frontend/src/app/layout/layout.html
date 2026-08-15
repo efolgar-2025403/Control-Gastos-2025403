@@ -1,0 +1,391 @@
+<div class="app-shell">
+
+  <!-- =========================================
+       SIDEBAR DESKTOP
+       ========================================= -->
+  <aside class="sidebar">
+
+    <!-- BRAND -->
+    <div class="brand">
+
+      <div class="brand-logo">
+        <span>CG</span>
+      </div>
+
+      <div class="brand-info">
+        <h1>Control-Gastos</h1>
+        <span>Elite Management</span>
+      </div>
+
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="navigation">
+
+      <span class="navigation-label">
+        PRINCIPAL
+      </span>
+
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined nav-icon">
+          dashboard
+        </span>
+
+        <span class="nav-text">
+          Dashboard
+        </span>
+      </a>
+
+      <a
+        routerLink="/expenses"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined nav-icon">
+          payments
+        </span>
+
+        <span class="nav-text">
+          Gastos
+        </span>
+      </a>
+
+      <a
+        routerLink="/categories"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined nav-icon">
+          category
+        </span>
+
+        <span class="nav-text">
+          Categorías
+        </span>
+      </a>
+
+      <a
+        routerLink="/movements"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined nav-icon">
+          receipt_long
+        </span>
+
+        <span class="nav-text">
+          Movimientos
+        </span>
+      </a>
+
+
+      <!-- ANÁLISIS -->
+
+      <span class="navigation-label navigation-label-analysis">
+        ANÁLISIS
+      </span>
+
+      <a
+        routerLink="/reports"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined nav-icon">
+          insert_chart
+        </span>
+
+        <span class="nav-text">
+          Reportes
+        </span>
+      </a>
+
+    </nav>
+
+
+    <!-- FOOTER SIDEBAR -->
+
+    <div class="sidebar-footer">
+
+      <button
+        type="button"
+        class="add-expense-button"
+        routerLink="/expenses"
+      >
+        <span class="material-symbols-outlined">
+          add
+        </span>
+
+        <span>
+          Nuevo gasto
+        </span>
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-item footer-nav-item"
+      >
+        <span class="material-symbols-outlined nav-icon">
+          settings
+        </span>
+
+        <span class="nav-text">
+          Configuración
+        </span>
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-item footer-nav-item logout-item"
+        (click)="logout()"
+      >
+        <span class="material-symbols-outlined nav-icon">
+          logout
+        </span>
+
+        <span class="nav-text">
+          Cerrar sesión
+        </span>
+      </button>
+
+
+      <div class="sidebar-footer-divider"></div>
+
+
+      <div class="version">
+
+        <div>
+          <span class="version-label">
+            CONTROL-GASTOS
+          </span>
+
+          <span class="version-number">
+            v1.0.0
+          </span>
+        </div>
+
+        <span class="version-status">
+          ●
+        </span>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =========================================
+       MOBILE TOPBAR
+       ========================================= -->
+
+  <header class="mobile-topbar">
+
+    <div class="mobile-brand">
+
+      <div class="mobile-brand-logo">
+        CG
+      </div>
+
+      <div class="mobile-brand-info">
+        <strong>
+          Control-Gastos
+        </strong>
+
+        <span>
+          Elite Management
+        </span>
+      </div>
+
+    </div>
+
+
+    <div class="mobile-actions">
+
+      <button
+        type="button"
+        aria-label="Notificaciones"
+      >
+        <span class="material-symbols-outlined">
+          notifications
+        </span>
+      </button>
+
+      <button
+        type="button"
+        aria-label="Cuenta"
+      >
+        <span class="material-symbols-outlined">
+          account_circle
+        </span>
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================================
+       CONTENIDO PRINCIPAL
+       ========================================= -->
+
+  <main class="main-content">
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <span class="topbar-label">
+          GESTIÓN FINANCIERA
+        </span>
+
+        <h1>
+          Control-Gastos
+        </h1>
+
+      </div>
+
+
+      <div class="topbar-right">
+
+        <div class="system-status">
+
+          <span class="status-dot"></span>
+
+          <span>
+            Sistema operativo
+          </span>
+
+        </div>
+
+
+        <div class="topbar-divider"></div>
+
+
+        <button
+          type="button"
+          class="notification-button"
+          aria-label="Notificaciones"
+        >
+          <span class="material-symbols-outlined">
+            notifications
+          </span>
+        </button>
+
+
+        <button
+          type="button"
+          class="account-button"
+          aria-label="Cuenta"
+        >
+          <span class="material-symbols-outlined">
+            account_circle
+          </span>
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- PAGE CONTENT -->
+
+    <section class="page-content">
+
+      <router-outlet></router-outlet>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================
+       MOBILE BOTTOM NAVIGATION
+       ========================================= -->
+
+  <nav class="mobile-bottom-nav">
+
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="mobile-nav-item"
+    >
+      <span class="material-symbols-outlined">
+        dashboard
+      </span>
+
+      <span>
+        Inicio
+      </span>
+    </a>
+
+
+    <a
+      routerLink="/expenses"
+      routerLinkActive="active"
+      class="mobile-nav-item"
+    >
+      <span class="material-symbols-outlined">
+        payments
+      </span>
+
+      <span>
+        Gastos
+      </span>
+    </a>
+
+
+    <a
+      routerLink="/expenses"
+      class="mobile-add-button"
+      aria-label="Nuevo gasto"
+    >
+      <span class="material-symbols-outlined">
+        add
+      </span>
+    </a>
+
+
+    <a
+      routerLink="/movements"
+      routerLinkActive="active"
+      class="mobile-nav-item"
+    >
+      <span class="material-symbols-outlined">
+        receipt_long
+      </span>
+
+      <span>
+        Movimientos
+      </span>
+    </a>
+
+
+    <a
+      routerLink="/reports"
+      routerLinkActive="active"
+      class="mobile-nav-item"
+    >
+      <span class="material-symbols-outlined">
+        insert_chart
+      </span>
+
+      <span>
+        Reportes
+      </span>
+    </a>
+
+  </nav>
+
+</div>
